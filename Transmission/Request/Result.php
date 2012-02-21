@@ -20,7 +20,7 @@
 
 namespace emberlabs\sfslib\Transmission\Request;
 use \emberlabs\sfslib\Internal\RequestException;
-use \OpenFlame\Framework\Dependency\Injector;
+use \emberlabs\openflame\Core\DependencyInjector;
 
 /**
  * StopForumSpam integration library - Request response object
@@ -63,10 +63,8 @@ class Result implements \ArrayAccess
 
 		if($data['appears'])
 		{
-			$injector = Injector::getInstance();
-
 			$data['appears'] = true;
-			$now = $injector->get('sfs.now');
+			$now = DependencyInjector::grab('sfs.now');
 
 			$data['lastseen'] = (int) $data['lastseen'];
 			$data['lastseen_obj'] = $lastseen = new \DateTime('@' . $data['lastseen']);

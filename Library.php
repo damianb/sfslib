@@ -19,8 +19,8 @@
  */
 
 namespace emberlabs\sfslib;
-use \OpenFlame\Framework\Core\Core;
-use \OpenFlame\Framework\Core\DependencyInjector;
+use \emberlabs\openflame\Core\Core;
+use \emberlabs\openflame\Core\DependencyInjector;
 use \emberlabs\sfslib\Transmission\Request\Instance as RequestInstance;
 use \emberlabs\sfslib\Transmission\Request\Response as RequestResponse;
 use \emberlabs\sfslib\Transmission\Request\Error as RequestError;
