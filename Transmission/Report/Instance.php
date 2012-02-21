@@ -24,8 +24,8 @@ use \emberlabs\sfslib\Internal\ReportException;
 use \emberlabs\sfslib\Transmission\TransmissionInstanceInterface;
 use \emberlabs\sfslib\Transmission\Report\Response as ReportResponse;
 use \emberlabs\sfslib\Transmission\Report\Error as ReportError;
-use \OpenFlame\Framework\Core;
-use \OpenFlame\Framework\Dependency\Injector;
+use \emberlabs\openflame\Core\Core;
+use \emberlabs\openflame\Core\DependencyInjector;
 use \InvalidArgumentException;
 
 /**
@@ -279,8 +279,7 @@ class Instance implements TransmissionInstanceInterface
 	public function send()
 	{
 		$sfs = \emberlabs\sfslib\Library::getInstance();
-		$injector = Injector::getInstance();
-		$transmitter = $injector->get('sfs.transmitter');
+		$transmitter = DependencyInjector::grab('sfs.transmitter');
 
 		if(empty($this->username) || empty($this->email) || empty($this->ip))
 		{

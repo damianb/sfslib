@@ -24,7 +24,7 @@ use \emberlabs\sfslib\Transmission\TransmissionInstanceInterface;
 use \emberlabs\sfslib\Transmission\TransmissionResponseInterface;
 use \emberlabs\sfslib\Transmission\Report\Error as ReportError;
 use \emberlabs\sfslib\Transmission\Report\Error as ReportResult;
-use \OpenFlame\Framework\Utility\JSON;
+use \emberlabs\openflame\Core\Utility\JSON;
 use \InvalidArgumentException;
 
 /**
