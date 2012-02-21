@@ -128,14 +128,17 @@ class Response implements TransmissionResponseInterface
 	 */
 	public function getUsername($username)
 	{
-		$username = mb_strtolower($username);
+		if(!isset($this->data['username'][(string) $username]))
+		{
+			if(!isset($this->data['username'][mb_strtolower($username)]))
+			{
+				return NULL;
+			}
 
-        if(!isset($this->data['username'][(string) $username]))
-        {
-            return NULL;
-        }
+			return $this->data['username'][mb_strtolower($username)];
+		}
 
-        return $this->data['username'][(string) $username];
+		return $this->data['username'][(string) $username];
 	}
 
 	/**
@@ -145,11 +148,14 @@ class Response implements TransmissionResponseInterface
 	 */
 	public function getEmail($email)
 	{
-		$email = mb_strtolower($email);
-
 		if(!isset($this->data['email'][(string) $email]))
 		{
-			return NULL;
+			if(!isset($this->data['email'][mb_strtolower($email)]))
+			{
+				return NULL;
+			}
+
+			return $this->data['email'][mb_strtolower($email)];
 		}
 
 		return $this->data['email'][(string) $email];
@@ -162,11 +168,14 @@ class Response implements TransmissionResponseInterface
 	 */
 	public function getIP($ip)
 	{
-		$ip = mb_strtolower($ip);
-
 		if(!isset($this->data['ip'][(string) $ip]))
 		{
-			return NULL;
+			if(!isset($this->data['ip'][mb_strtolower($ip)]))
+			{
+				return NULL;
+			}
+
+			return $this->data['ip'][mb_strtolower($ip)];
 		}
 
 		return $this->data['ip'][(string) $ip];
