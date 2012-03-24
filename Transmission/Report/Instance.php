@@ -113,8 +113,8 @@ class Instance implements TransmissionInstanceInterface
 			'username'		=> $this->username,
 			'email'			=> $this->email,
 			'ip'			=> $this->ip,
-			'evidence'		=> $this->evidence,
 			'api_key' 		=> $sfs->getKey(),
+			'evidence'		=> $this->evidence,
 		));
 	}
 

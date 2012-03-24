@@ -69,8 +69,6 @@ class Result implements \ArrayAccess
 			$data['lastseen'] = (int) $data['lastseen'];
 			$data['lastseen_obj'] = $lastseen = new \DateTime('@' . $data['lastseen']);
 			$data['lastseen_span'] = $lastseen->diff($now, true);
-
-			$data['confidence'] = $this->getConfidence($data['frequency'], $data['lastseen']);
 		}
 		else
 		{
@@ -78,46 +76,6 @@ class Result implements \ArrayAccess
 		}
 
 		$this->data = array_merge($this->data, $data);
-	}
-
-	/**
-	 * Get report confidence rating based on number of submissions and last submission time.
-	 * @param integer $reports - The number of reports for this result.
-	 * @param integer $unix_last_report - The unix timestamp of the time the result was last reported.
-	 * @return float - Returns a percentage (0-100%) of the confidence level of the result data.
-	 */
-	public function getConfidence($reports, $unix_last_report)
-	{
-		$current_time = time();
-
-		$ups = floor($reports / 2);
-
-		// seconds per day: 86400
-		$grace = 14; // 14 day "grace period"
-		$downs = floor(($current_time - $unix_last_report) / 86400) - $grace;
-		if($downs < 0)
-		{
-			$downs = 0;
-		}
-
-		$n = $ups + ($downs * 2);
-		if($n == 0)
-		{
-			return 0;
-		}
-
-		// Begin with the Wilson score interval
-		// http://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval
-		// based off of the blog post at:
-		// http://amix.dk/blog/post/19588
-		$z = 1.0; // 1.0 = 85%, 1.6 = 95%
-		$phat = $ups / $n;
-
-		$res = sqrt($phat + $z * $z / (2 * $n) - $z * (($phat * (1 - $phat) + $z * $z / (4 * $n)) / $n)) / (1 + $z * $z / $n);
-
-		$res = round($res * 100, 2);
-
-		return $res;
 	}
 
 	/**
@@ -145,6 +103,15 @@ class Result implements \ArrayAccess
 	public function getNormalized()
 	{
 		return (string) $this->data['normalized'];
+	}
+	
+	/**
+	 * Get the confidence rating returned by the SFS API.
+	 * @return float - The confidence rating.
+	 */
+	public function getConfidence()
+	{
+		return $this->data['confidence'];
 	}
 
 	/**

@@ -42,7 +42,7 @@ class Library
 	/**
 	 * @const string - The version of the library.
 	 */
-	const LIB_VERSION = '1.0.0-rc1';
+	const LIB_VERSION = '1.0.0-rc2';
 
 	/**
 	 * @var \emberlabs\sfslib\Library - The singleton instance of this object.
